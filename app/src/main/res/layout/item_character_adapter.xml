@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="@color/darkGray"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageViewCharacterAdapter"
+                android:layout_width="150dp"
+                android:layout_height="180dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:id="@+id/textViewCharacterName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/arbutus"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewCharacterAdapter"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="TextView" />
+
+            <View
+                android:id="@+id/viewCharacterAdapterStatus"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/dot_character_adapter"
+                app:layout_constraintStart_toStartOf="@+id/textViewCharacterName"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCharacterName" />
+
+            <TextView
+                android:id="@+id/textViewCharacterAdapterStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/amethysta"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/viewCharacterAdapterStatus"
+                app:layout_constraintStart_toEndOf="@+id/viewCharacterAdapterStatus"
+                app:layout_constraintTop_toTopOf="@+id/viewCharacterAdapterStatus"
+                tools:text="TextView" />
+
+            <TextView
+                android:id="@+id/textViewCharacterAdapterSpecie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/amethysta"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/viewCharacterAdapterStatus"
+                app:layout_constraintStart_toEndOf="@+id/textViewCharacterAdapterStatus"
+                app:layout_constraintTop_toTopOf="@+id/viewCharacterAdapterStatus"
+                tools:text="TextView" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/amethysta"
+                android:text="@string/last_known_location"
+                android:textColor="@color/textGrayDescription"
+                app:layout_constraintStart_toStartOf="@+id/viewCharacterAdapterStatus"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCharacterAdapterStatus" />
+
+            <TextView
+                android:id="@+id/textViewCharacterAdapterLastKnowLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/amethysta"
+                android:textColor="@color/orange"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                tools:text="TextView" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/amethysta"
+                android:text="@string/first_seen_in"
+                android:textColor="@color/textGrayDescription"
+                app:layout_constraintEnd_toEndOf="@+id/textViewCharacterAdapterLastKnowLocation"
+                app:layout_constraintStart_toStartOf="@+id/textViewCharacterAdapterLastKnowLocation"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCharacterAdapterLastKnowLocation" />
+
+            <TextView
+                android:id="@+id/textViewCharacterAdapterFirstSeenIn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/amethysta"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/textView6"
+                app:layout_constraintStart_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                tools:text="TextView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

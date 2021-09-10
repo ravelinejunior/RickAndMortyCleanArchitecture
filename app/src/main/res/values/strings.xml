@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AppNew</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="last_known_location">Last known Location:</string>
+    <string name="first_seen_in">First Seen In:</string>
+    <string name="origin">Origin</string>
+    <string name="species">Species</string>
 </resources>
