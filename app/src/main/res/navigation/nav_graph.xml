@@ -8,8 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="br.com.raveline.appnew.presentation.ui.fragment.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        android:label="fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -17,7 +16,7 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="br.com.raveline.appnew.presentation.ui.fragment.DetailsFragment"
-        android:label="DetailsFragment" >
+        android:label="DetailsFragment">
         <action
             android:id="@+id/action_detailsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
