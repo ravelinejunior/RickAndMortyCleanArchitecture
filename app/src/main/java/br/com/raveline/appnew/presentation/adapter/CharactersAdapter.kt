@@ -6,11 +6,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.raveline.appnew.R
 import br.com.raveline.appnew.data.model.Character
 import br.com.raveline.appnew.databinding.ItemCharacterAdapterBinding
+import br.com.raveline.appnew.presentation.ui.fragment.HomeFragmentDirections
 import br.com.raveline.appnew.utils.CharactersDiffUtil
 import com.bumptech.glide.Glide
 
@@ -29,6 +31,12 @@ class CharactersAdapter(private val context: Application) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val character = characters[position]
         holder.bind(character, context)
+
+        holder.itemView.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(character)
+            holder.itemView.findNavController().navigate(action)
+        }
+
     }
 
     override fun getItemCount(): Int = characters.size
@@ -62,7 +70,6 @@ class CharactersAdapter(private val context: Application) :
                     .into(imageViewCharacterAdapter)
 
                 setColorCharacterStatus(character, context)
-
 
             }
 

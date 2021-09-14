@@ -1,13 +1,17 @@
 package br.com.raveline.appnew.data.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
+@Parcelize
 data class Character(
     @SerializedName("created")
     val created: String?,
     @SerializedName("episode")
-    val episode: List<Any>?,
+    val episode: @RawValue List<Any>?,
     @SerializedName("gender")
     val gender: String?,
     @SerializedName("id")
@@ -15,11 +19,11 @@ data class Character(
     @SerializedName("image")
     val image: String?,
     @SerializedName("location")
-    val location: Location?,
+    val location: @RawValue Location?,
     @SerializedName("name")
     val name: String?,
     @SerializedName("origin")
-    val origin: Origin?,
+    val origin: @RawValue Origin?,
     @SerializedName("species")
     val species: String?,
     @SerializedName("status")
@@ -28,4 +32,4 @@ data class Character(
     val type: String?,
     @SerializedName("url")
     val url: String?
-)
+) : Parcelable

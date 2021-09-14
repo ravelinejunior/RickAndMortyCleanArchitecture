@@ -37,6 +37,7 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         charactersViewModel = ViewModelProvider(this, factory)[CharactersViewModel::class.java]
         setHasOptionsMenu(true)
+
     }
 
     override fun onCreateView(
