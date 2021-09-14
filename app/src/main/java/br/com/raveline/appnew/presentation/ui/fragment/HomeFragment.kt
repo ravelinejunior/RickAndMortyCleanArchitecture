@@ -1,5 +1,6 @@
 package br.com.raveline.appnew.presentation.ui.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -61,7 +63,7 @@ class HomeFragment : Fragment() {
 
     private fun requestDataFromApi() {
         charactersViewModel.getAllCharacters()
-        charactersViewModel.charactersMutableLiveData.observe(viewLifecycleOwner, { response ->
+        charactersViewModel.charactersLiveData.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
                     response.data.let {
@@ -102,6 +104,13 @@ class HomeFragment : Fragment() {
         mBinding!!.recyclerViewHomeFragment.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = mAdapter
+        }
+
+        mBinding!!.toolbarFragmentHome.apply {
+            title = "Rick And Morty"
+            subtitle = "Bitches, Wabalabdabdub!"
+            setTitleTextColor(Color.WHITE)
+            setSubtitleTextColor(Color.WHITE)
         }
     }
 

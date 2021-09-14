@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.com.raveline.appnew.data.model.Characters
@@ -21,6 +22,7 @@ class CharactersViewModel(
 ) : AndroidViewModel(app) {
 
     val charactersMutableLiveData: MutableLiveData<Resource<Characters>> = MutableLiveData()
+    val charactersLiveData:LiveData<Resource<Characters>> = charactersMutableLiveData
 
 
     fun getAllCharacters() = viewModelScope.launch {
@@ -41,6 +43,8 @@ class CharactersViewModel(
                 charactersMutableLiveData.postValue(Resource.Error(e.message))
             }
 
+        }else{
+            charactersMutableLiveData.postValue(Resource.Error("No Internet Connection"))
         }
     }
 
