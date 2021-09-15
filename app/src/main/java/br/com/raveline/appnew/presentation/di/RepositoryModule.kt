@@ -15,7 +15,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideRickAndMortyRepository(
+    fun provideRickAndMortyDataSource(
         rickAndMortyApiService: RickAndMortyApiService
     ): CharactersDataSource {
         return CharactersDataSourceImpl(rickAndMortyApiService)

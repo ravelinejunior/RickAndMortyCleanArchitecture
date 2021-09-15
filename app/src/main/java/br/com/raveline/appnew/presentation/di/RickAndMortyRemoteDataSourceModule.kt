@@ -1,6 +1,7 @@
 package br.com.raveline.appnew.presentation.di
 
 import br.com.raveline.appnew.data.datasources.datasource.CharactersDataSource
+import br.com.raveline.appnew.data.datasources.datasource.CharactersLocalDataSource
 import br.com.raveline.appnew.domain.repository.RickAndMortyRepository
 import br.com.raveline.appnew.domain.repository.RickAndMortyRepositoryImpl
 import dagger.Module
@@ -15,7 +16,10 @@ class RickAndMortyRemoteDataSourceModule {
 
     @Singleton
     @Provides
-    fun provideRandMRemoteDataSource(rickAndMortyDataSource: CharactersDataSource): RickAndMortyRepository {
-        return RickAndMortyRepositoryImpl(rickAndMortyDataSource)
+    fun provideRandMRemoteDataSource(
+        rickAndMortyDataSource: CharactersDataSource,
+        localDataSource: CharactersLocalDataSource
+    ): RickAndMortyRepository {
+        return RickAndMortyRepositoryImpl(rickAndMortyDataSource, localDataSource)
     }
 }
