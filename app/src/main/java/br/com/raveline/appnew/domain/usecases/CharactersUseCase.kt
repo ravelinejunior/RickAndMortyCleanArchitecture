@@ -15,7 +15,7 @@ class CharactersUseCase(private val rickAndMortyRepository: RickAndMortyReposito
         rickAndMortyRepository.insertCharacters(characterEntity)
     }
 
-    suspend fun executeReadCharactersTable(): Flow<List<CharacterEntity>> {
+     fun executeReadCharactersTable(): Flow<List<CharacterEntity>> {
         return rickAndMortyRepository.readCharactersTable()
     }
 }

@@ -5,10 +5,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import br.com.raveline.appnew.data.db.entity.CharacterEntity
 import br.com.raveline.appnew.data.model.Characters
 import br.com.raveline.appnew.domain.usecases.CharactersUseCase
 import br.com.raveline.appnew.domain.util.Resource
@@ -21,15 +19,29 @@ class CharactersViewModel(
     private val app: Application
 ) : AndroidViewModel(app) {
 
-    val charactersMutableLiveData: MutableLiveData<Resource<Characters>> = MutableLiveData()
-    val charactersLiveData:LiveData<Resource<Characters>> = charactersMutableLiveData
+    private val charactersMutableLiveData: MutableLiveData<Resource<Characters>> = MutableLiveData()
+    val charactersLiveData: LiveData<Resource<Characters>> = charactersMutableLiveData
 
+    /*ROOM ELEMENTS*/
+    val charactersLocalLiveData: LiveData<List<CharacterEntity>> =
+        charactersUseCase.executeReadCharactersTable().asLiveData()
+
+    fun insertCharacters(characterEntity: CharacterEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            charactersUseCase.executeInsertCharacters(characterEntity)
+        }
+
+    private fun offlineCacheCharacters(characters: Characters) {
+        //create a entity
+        val characterEntity = CharacterEntity(characters)
+        insertCharacters(characterEntity)
+    }
 
     fun getAllCharacters() = viewModelScope.launch {
         getAllCharactersSafeCall()
     }
 
-    private suspend fun getAllCharactersSafeCall(){
+    private suspend fun getAllCharactersSafeCall() {
         charactersMutableLiveData.postValue(Resource.Loading())
 
         if (isNetworkAvailable(app)) {
@@ -38,12 +50,18 @@ class CharactersViewModel(
 
                 charactersMutableLiveData.postValue(handleCharactersResponse(response))
 
+                charactersMutableLiveData.value = handleCharactersResponse(response)
+
                 //TODO("CRIAR FUNÇÃO PARA SALVAR PRIMEIRA REQUISIÇÃO NO BANCO DE DADOS")
+                val characters = charactersLiveData.value!!.data
+                if(characters != null){
+                    offlineCacheCharacters(characters)
+                }
             } catch (e: Exception) {
                 charactersMutableLiveData.postValue(Resource.Error(e.message))
             }
 
-        }else{
+        } else {
             charactersMutableLiveData.postValue(Resource.Error("No Internet Connection"))
         }
     }

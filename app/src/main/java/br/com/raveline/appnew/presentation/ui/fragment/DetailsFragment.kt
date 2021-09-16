@@ -1,9 +1,12 @@
 package br.com.raveline.appnew.presentation.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -49,10 +52,11 @@ class DetailsFragment : Fragment() {
                     requireContext(),
                     R.drawable.ic_baseline_arrow_back_24
                 )
-                setTitleTextColor(ContextCompat.getColor(requireContext(),R.color.white))
+                setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
                 setNavigationOnClickListener {
-                    findNavController().navigate(R.id.action_detailsFragment_to_homeFragment)
+                    val action = DetailsFragmentDirections.actionDetailsFragmentToHomeFragment().setIsBacking(true)
+                    findNavController().navigate(action)
                 }
 
             }
@@ -75,6 +79,18 @@ class DetailsFragment : Fragment() {
                     .into(imageViewFragmentDetailSex)
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (item.itemId == android.R.id.home) {
+
+
+            Log.i("TAGFRAGMENT", "${item.itemId} = ${android.R.id.home}")
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }

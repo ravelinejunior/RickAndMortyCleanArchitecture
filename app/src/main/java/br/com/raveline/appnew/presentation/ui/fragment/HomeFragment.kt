@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.raveline.appnew.databinding.FragmentHomeBinding
 import br.com.raveline.appnew.domain.util.Resource
@@ -35,6 +35,8 @@ class HomeFragment : Fragment() {
     @Inject
     lateinit var mAdapter: CharactersAdapter
 
+    private val args by navArgs<HomeFragmentArgs>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         charactersViewModel = ViewModelProvider(this, factory)[CharactersViewModel::class.java]
@@ -54,11 +56,33 @@ class HomeFragment : Fragment() {
 
         setupRecyclerView()
 
-        lifecycleScope.launchWhenStarted {
-            requestDataFromApi()
+        if(!args.isBacking){
+            getData()
         }
 
         return mBinding!!.root
+    }
+
+    private fun getData(){
+        lifecycleScope.launchWhenStarted {
+            charactersViewModel.charactersLocalLiveData.observe(viewLifecycleOwner,{
+                    databaseCharacters ->
+                try{
+                    if(databaseCharacters.isNotEmpty()){
+                        mAdapter.setData(databaseCharacters[0].characters.results!!)
+                        Log.i("TAGFRAGMENT", "getData: from database")
+                        hideProgressBar()
+                    }else{
+                        requestDataFromApi()
+                        Log.i("TAGFRAGMENT", "getData: from api")
+                    }
+                }catch (e:Exception){
+                    mAdapter.setData(databaseCharacters[0].characters.results!!)
+                    Log.i("TAGFRAGMENT", "getData: from database")
+                    hideProgressBar()
+                }
+            })
+        }
     }
 
     private fun requestDataFromApi() {
@@ -111,6 +135,7 @@ class HomeFragment : Fragment() {
             subtitle = "Bitches, Wabalabdabdub!"
             setTitleTextColor(Color.WHITE)
             setSubtitleTextColor(Color.WHITE)
+            textAlignment = TEXT_ALIGNMENT_CENTER
         }
     }
 
